@@ -1,0 +1,17 @@
+@import "./variable.scss";
+
+html,body,ul,ol,li,dl,p,h1,h2,h3,h4,h5,h6,form,input,fieldset,legend,select,figure,figcaption{margin:0;padding:0}
+b,strong,h1,h2,h3,h4,h5,h6{font-weight:500}
+i,em{font-style:normal}
+ul,ol,li{list-style: none;cursor: pointer;}
+a{text-decoration: none;color: rgb(145,165,176);
+    &:hover{
+        color: $ahover;
+        cursor: pointer;
+    }
+}
+img{display:block;border:0;}
+.clearfn:after{content:'';display:block;height:0;overflow:hidden;clear:both;visibility:hidden}
+.clearfn{zoom:1}
+/*解决IE7及以下的高度坍塌*/
+html,body{width: 100%;height: 100%;background-color: $bgc;}

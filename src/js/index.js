@@ -11,7 +11,7 @@ $.ajax({              //首页登陆验证
   url: 'http://localhost:8888/users/info?id=' + id,
   headers: {'authorization':token },
   success (res) {
-    if (res.code === 401 ||  res.code === 0) {
+    if (res.code !== 1) {
       $('.on').addClass('active')
       $('.off').removeClass('active')
     } else {

@@ -31,7 +31,7 @@ const htmlHandler = () => {
     .src('./src/views/*.html')
     .pipe(fileInclude({ // 把组件全部组装完毕
       basepath: './src/components/', // 存放组件的目录
-      prefix: '@', // 你自定义的一个标识符, 用于将来在 html 文件内使用的
+      prefix: '@', // 自定义的一个标识符, 用于将来在 html 文件内使用的
     }))
     .pipe(htmlmin({ 
       collapseWhitespace: true, 
@@ -86,6 +86,7 @@ const watchHandler = () => {
   gulp.watch('./src/views/*.html', htmlHandler)
   gulp.watch('./src/images/**.*', imgHandler)
   gulp.watch('./src/fonts/', fontHandler)
+  gulp.watch('./src/npmthreemodule/*.*',threeHandler)
 }
 
 const _default = gulp.series(

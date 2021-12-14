@@ -16,31 +16,24 @@
     <script src="../npmthreemodule/swiper-bundle.min.js"></script>
     <script src="../npmthreemodule/mi.js"></script>
     <script src="http://at.alicdn.com/t/font_3011000_lfmubctzq0p.js"></script>
-    <style type="text/css">
-        .icon {
-           width: 1.5em; height: 1.5em;
-           vertical-align: -0.34em;
-           fill: currentColor;
-           overflow: hidden;
-        }
-    </style>
+    @include('iconstyle.html')
 </head>
 
 <body>
     <!-- header -->
     <header>
         <div class="contain">
-            <span>小米商城</span>
+            @include('header.html')
             <div>
                 <p class="on active">
-                    <a href="./login.html"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-geren"></use></svg>登录</a>
-                    <a href="./register.html"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zhuce1"></use></svg>注册</a>
-                    <a href="./cart.html"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-maijiagouwuche"></use></svg>购物车</a>
+                    <a href="./login.html">@include('iconlink.html',{ "type":"geren" })登录</a>
+                    <a href="./register.html">@include('iconlink.html',{ "type":"zhuce1" })注册</a>
+                    <a href="./cart.html">@include('iconlink.html',{ "type":"maijiagouwuche" })购物车</a>
                 </p>
                 <p class="off active">
                     您好
-                    <span class="nickname">xxx</span>
-                    <a href="./cart.html"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-maijiagouwuche"></use></svg>购物车</a>
+                    <span class="nickname"></span>
+                    <a href="./cart.html">@include('iconlink.html',{ "type":"maijiagouwuche" })购物车</a>
                     <button class="logout">注销登录</button>
                 </p>
             </div>
@@ -111,110 +104,10 @@
 
 
     <!-- 分区 -->
-    <div class="phone page">
-        <div class="contain">
-            <div class="phoneheader pagelist">
-                手机专区
-                <div class="func">
-                    <div class="sort">
-                        <ul class="right">
-                          <li data-method="ASC" class="psort_item active">综合升序</li>
-                          <li data-method="DESC" class="psort_item">综合降序</li>
-                        </ul>
-                    </div>
-                    <div class="phone pagenation">
-                          <span class="left disable">&lt;</span>
-                          <span class="total">1 / 100</span>
-                          <span class="right">&gt;</span>
-                          <input class="goto" type="text" value="1">
-                          <button class="go">跳转</button>
-                    </div>
-                </div>
-            </div>
-          <!-- 手机列表主体内容 -->
-          <ul class="phonelist">
-            <!-- JS 渲染 -->
-          </ul>
-        </div>
-    </div>
-    <div class="watch page">
-        <div class="contain">
-            <div class="watchheader pagelist">
-                手表专区
-                <div class="func">
-                    <div class="sort">
-                        <ul class="right">
-                          <li data-type="id" data-method="ASC" class="wsort_item active">综合升序</li>
-                          <li data-type="id" data-method="DESC" class="wsort_item">综合降序</li>
-                        </ul>
-                    </div>
-                    <div class="watch pagenation">
-                          <span class="left disable">&lt;</span>
-                          <span class="total">1 / 100</span>
-                          <span class="right">&gt;</span>
-                          <input class="goto" type="text" value="1">
-                          <button class="go">跳转</button>
-                    </div>
-                </div>
-            </div>
-          <!-- 手表列表主体内容 -->
-          <ul class="watchlist">
-            <!-- JS 渲染 -->
-          </ul>
-        </div>
-    </div>
-    <div class="tv page">
-        <div class="contain">
-            <div class="tvheader pagelist">
-                电视专区
-                <div class="func">
-                    <div class="sort">
-                        <ul class="right">
-                          <li data-method="ASC" class="tsort_item active">综合升序</li>
-                          <li data-method="DESC" class="tsort_item">综合降序</li>
-                        </ul>
-                    </div>
-                    <div class="tv pagenation">
-                          <span class="left disable">&lt;</span>
-                          <span class="total">1 / 100</span>
-                          <span class="right">&gt;</span>
-                          <input class="goto" type="text" value="1">
-                          <button class="go">跳转</button>
-                    </div>
-                </div>
-            </div>
-          <!-- 电视列表主体内容 -->
-          <ul class="tvlist">
-            <!-- JS 渲染 -->
-          </ul>
-        </div>
-    </div>
-    <div class="life page">
-        <div class="contain">
-            <div class="lifeheader pagelist">
-                生活专区
-                <div class="func">
-                    <div class="sort">
-                        <ul class="right">
-                          <li data-method="ASC" class="lsort_item active">综合升序</li>
-                          <li data-method="DESC" class="lsort_item">综合降序</li>
-                        </ul>
-                    </div>
-                    <div class="life pagenation">
-                          <span class="left disable">&lt;</span>
-                          <span class="total">1 / 100</span>
-                          <span class="right">&gt;</span>
-                          <input class="goto" type="text" value="1">
-                          <button class="go">跳转</button>
-                    </div>
-                </div>
-            </div>
-          <!-- 生活列表主体内容 -->
-          <ul class="lifelist">
-            <!-- JS 渲染 -->
-          </ul>
-        </div>
-    </div>
+    @include('indexgoods.html', { "type1": "phone" ,"type2": "phoneheader","type3": "phonelist","sort":"psort_item"})
+    @include('indexgoods.html', { "type1": "watch" ,"type2": "watchheader","type3": "watchlist","sort":"wsort_item"})
+    @include('indexgoods.html', { "type1": "tv" ,"type2": "tvheader","type3": "tvlist","sort":"tsort_item"})
+    @include('indexgoods.html', { "type1": "life" ,"type2": "lifeheader","type3": "lifelist","sort":"lsort_item"})
 
     <!-- 定位栏 -->
     <ul class="pos">

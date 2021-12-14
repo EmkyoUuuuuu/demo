@@ -9,9 +9,17 @@ $('form').on('submit', e => {
     nickname: $('.nickname').val()
   }
 
-  if (!info.username || !info.password || !info.rpassword || !info.nickname) return alert('请完整填写表单')
+  if (!info.username || !info.password || !info.rpassword || !info.nickname){
+    $('.error').html("请完整填写，便于您注册哦")
+    $('.error').css('display','block')
+    return
+  }
 
-  if (info.password !== info.rpassword) return alert('两次密码不一样')
+  if (info.password !== info.rpassword){
+    $('.error').html("俩次密码不一样哦，细心一些")
+    $('.error').css('display','block')
+    return
+  }
 
   $.ajax({
     url: 'http://localhost:8888/users/register',
@@ -19,11 +27,20 @@ $('form').on('submit', e => {
     data: info,
     success (res) {
       if (res.code === 0 ) {
-        $('.error').style.display = 'block'
+        $('.error').html("注册失败, 该用户名已经被占用, 请重试")
+        $('.error').css('display','block')
       } else {
-        alert('注册成功, 点击确定跳转到登录页')
-        window.location.href = './login.html'
+        let i = 3
+        let timer =  setInterval(() => {
+          $('.error').html(`注册成功, ${ i-- }s后自动跳转登录页`)
+        }, 1000);
+        $('.error').css('display','block')
+        setTimeout(() => {
+          clearTimeout(timer)
+          window.location.href = './login.html'
+        }, 3000);
       }
     }
   })
 })
+

@@ -88,7 +88,7 @@ $("#all").on({
 
 $.ajax({
     url: 'http://localhost:8888/goods/category',
-    success (res) {    //轮播图上面分类数据
+    success (res) {    //全部商品复用数据栏
       let str = ''
       for(let i = 2 ; i <= 11 ; i++){
         str +=`<li>${ res.list[i] }</li>`  
@@ -167,8 +167,10 @@ $.ajax({
           let str = ''
           str +=`
               <div class="left">
+                <div class="show">
                   <img src="${ result[a]['body']['product_list'][b]['img_url'] }" alt="">
                   <div class="mask"></div>
+                </div>
                   <div class="enlarge">
                   <img src="${ result[a]['body']['product_list'][b]['img_url'] }" alt="">
                   </div>      
@@ -189,8 +191,10 @@ $.ajax({
           let str = ''
           str +=`
               <div class="left">
+                <div class="show">
                   <img src="${ result[a]['body']['tab_content'][0]['product_list'][b]['img_url'] }" alt="">
                   <div class="mask"></div>
+                </div>
                   <div class="enlarge">
                   <img src="${ result[a]['body']['tab_content'][0]['product_list'][b]['img_url'] }" alt="">
                   </div>      
@@ -216,8 +220,10 @@ $.ajax({
         let str = ''
         str +=`
         <div class="left">
+          <div class="show">
             <img src="${ res.info.img_big_logo }" alt="">
             <div class="mask"></div>
+          </div>
             <div class="enlarge">
             <img src="${ res.info.img_big_logo }" alt="">
             </div>      
@@ -244,6 +250,14 @@ $.ajax({
     }
 })
 
+function doubleNum(num){
+  if(num < 10){
+    return '0'+num
+  }else{
+    return num
+  }
+}
+
 $(window).ajaxStop(function(){
 
   setInterval(function(){
@@ -258,53 +272,61 @@ $(window).ajaxStop(function(){
         var minute=parseInt(num/(60*1000));
         num=num%(60*1000);
         var seconde=parseInt(num/1000)
-        $('.timer').find('span').eq(0).html(day)
-        $('.timer').find('span').eq(1).html(hour)
-        $('.timer').find('span').eq(2).html(minute)
-        $('.timer').find('span').eq(3).html(seconde)
+        $('.timer').find('span').eq(0).html(doubleNum(day))
+        $('.timer').find('span').eq(1).html(doubleNum(hour))
+        $('.timer').find('span').eq(2).html(doubleNum(minute))
+        $('.timer').find('span').eq(3).html(doubleNum(seconde))
         },1000)
 
-  //点击加入购物车
-$('.add').on('click',function(e){
-  console.log(this.dataset.id)
-  const goodsId = this.dataset.id
-
-  if (!id) {
-    alert('请登陆后进行购物,谢谢合作')
-    return
-  }
-
-  $.ajax({
-    url: 'http://localhost:8888/users/info?id=' + id,
-    headers: {'authorization':token },
-    success (res) {
-      if (res.code === 401) {
-        alert('登陆已过期，请重新登录后进行购物，谢谢您光临')
-      } else {
-        $.ajax({
-          url: `http://localhost:8888/cart/add`,
-          data: {
-            id,
-            goodsId
-          },
-          method:'POST',
-          headers: {'authorization':token },
-          success (res) {
-            if(res.code === 0){
-              alert('小米商品没有库存哦,别点啦')
-            }
-            if(res.code === 1){
-              alert('添加商品成功')
-            }
-          }
-        })
-      }
+    //点击加入购物车
+  $('.add').on('click',function(e){
+    console.log(this.dataset.id)
+    const goodsId = this.dataset.id
+  
+    if (!id) {
+      alert('请登陆后进行购物,谢谢合作')
+      return
     }
+  
+    $.ajax({
+      url: 'http://localhost:8888/users/info?id=' + id,
+      headers: {'authorization':token },
+      success (res) {
+        if (res.code === 401) {
+          alert('登陆已过期，请重新登录后进行购物，谢谢您光临')
+        } else {
+          $.ajax({
+            url: `http://localhost:8888/cart/add`,
+            data: {
+              id,
+              goodsId
+            },
+            method:'POST',
+            headers: {'authorization':token },
+            success (res) {
+              if(res.code === 0){
+                alert('小米商品没有库存哦,别点啦')
+              }
+              if(res.code === 1){
+                alert('添加商品成功')
+              }
+            }
+          })
+        }
+      }
+    })
   })
-})
+  
+  //点击购买
+  $('.buy').on('click',function(){
+    alert('假装购买成功了呗')
+    return
+  })
 
-//点击购买
-$('.buy').on('click',function(){
-  alert('假装购买成功了呗')
-})
+  //放大镜
+  console.log($('.left'))
+  console.log($('.mask'))
+  console.log($('.enlarge'))
+  new Enlarge('.left')
+
 })

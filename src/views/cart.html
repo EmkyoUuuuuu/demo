@@ -11,29 +11,22 @@
     <script src="../npmthreemodule/mi.js"></script>
     <link rel="stylesheet" href="../css/cart.css">
     <script src="http://at.alicdn.com/t/font_3011000_lfmubctzq0p.js"></script>
-    <style type="text/css">
-        .icon {
-           width: 1.5em; height: 1.5em;
-           vertical-align: -0.34em;
-           fill: currentColor;
-           overflow: hidden;
-        }
-    </style>
+    @include('iconstyle.html')
 </head>
 <body>
     <!-- header -->
     <header>
         <div class="contain">
-            <span>小米商城</span>
+            @include('header.html')
             <div>
                 <p class="on active">
-                    <a href="./login.html"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-geren"></use></svg>登录</a>
-                    <a href="./register.html"><svg class="icon" aria-hidden="true"><use xlink:href="#icon-zhuce1"></use></svg>注册</a>
+                    <a href="./login.html">@include('iconlink.html',{ "type":"geren" })登录</a>
+                    <a href="./register.html">@include('iconlink.html',{ "type":"zhuce1" })注册</a>
                     <a href="./index.html">首页</a>
                 </p>
                 <p class="off active">
                     您好
-                    <span class="nickname">xxx</span>
+                    <span class="nickname"></span>
                     <a href="./index.html">首页</a>
                     <button class="logout">注销登录</button>
                 </p>
